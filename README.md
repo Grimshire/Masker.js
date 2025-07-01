@@ -9,6 +9,8 @@ A pair of lightweight, dependency-free JavaScript classes (`Masker` & `Validator
     *   Dates (civil & military)
 *   Single-field validation (required, date format & range checks)
 *   Cross-field “begin & end” date comparisons
+*   Includes a text-limiting feature
+*   Faux input mask for emails
 
 ## Table of Contents
 
