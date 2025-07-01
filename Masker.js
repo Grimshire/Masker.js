@@ -226,7 +226,7 @@ class Masker {
         removePlaceholder();
       }
       // Run the final validation.
-      Validator.validateEmail(e.target);
+      Validator.validateEmail(el);
     });
 
     el.addEventListener('input', this.#applyEmailMask);
@@ -314,7 +314,8 @@ class Masker {
 
   static #updateCharCount(el, fb) {
     if (fb.style.display === 'none') fb.style.display = 'block';
-    fb.textContent = `${el.value.length} / ${el.maxLength}`;
+    const currLength = el.textContent.length || el.value.length;
+    fb.textContent = `${currLength} / ${el.maxLength}`;
   }
 
   static #setupNumberMask(el) {
@@ -418,7 +419,8 @@ class Masker {
     const t = e.target;
     if (t.maxLength < 0) return;
     const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'];
-    if (t.value.length >= t.maxLength && !allowed.includes(e.key)) {
+    const currLength = t.textContent.length || t.value.length;
+    if (currLength >= t.maxLength && !allowed.includes(e.key)) {
       e.preventDefault();
     }
   }
