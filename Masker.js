@@ -2,6 +2,40 @@
  * Validator: handles required checks, single‐date validation, and date‐range validation.
  */
 class Validator {
+  static triggerAllValidations() {
+    // Triggers all the inline validation events first.
+    document.querySelectorAll('[masker]').forEach(el => {
+      el.dispatchEvent(new Event('blur'));
+    });
+
+    const formErrors = [];
+    const errorSpans = document.getElementsByClassName('error-msg');
+
+    // Convert the HTMLCollection to an array to loop through it.
+    Array.from(errorSpans).forEach(span => {
+      // Only collect visible errors that contain a message.
+      if (span.style.display !== 'none' && span.textContent.trim() !== '') {
+        const message = span.textContent.trim();
+
+        // Get the ID of the invalid input from the 'data-error-for' attribute.
+        const inputId = span.dataset.errorFor;
+        const inputElement = document.getElementById(inputId);
+
+        // Get the title from the input element itself, with a fallback.
+        const inputTitle = inputElement ? inputElement.title : 'Field';
+
+        // Push an object with the details into the array.
+        formErrors.push({
+          id: inputId,
+          title: inputTitle,
+          message: message
+        });
+      }
+    });
+
+    return formErrors;
+  }
+
   static #getOrCreateErrorContainer(el) {
     if (!el.id) {
       console.error("Element must have an id to show errors.", el);
