@@ -34,11 +34,23 @@ class Validator {
   }
 
   static validateRequired(el) {
-    if (!el.value || el.value === el.placeholder) {
+    const isSelect = el.tagName.toLowerCase() === 'select';
+    let isInvalid = false;
+
+    if (isSelect) {
+      // Logic for dropdowns: invalid if value is empty or null.
+      isInvalid = !el.value || el.value.trim() === '';
+    } else {
+      // text inputs, textareas, etc.
+      isInvalid = !el.value || el.value === el.placeholder;
+    }
+
+    if (isInvalid) {
       const msg = el.getAttribute('errMsg') || el.getAttribute('data-errMsg') || 'This field is required.';
       this.#displayError(el, msg);
       return false;
     }
+
     this.clearError(el);
     return true;
   }
