@@ -35,7 +35,7 @@ class Validator {
 
   static validateRequired(el) {
     if (!el.value || el.value === el.placeholder) {
-      const msg = el.getAttribute('data-errMsg') || 'This field is required.';
+      const msg = el.getAttribute('errMsg') || el.getAttribute('data-errMsg') || 'This field is required.';
       this.#displayError(el, msg);
       return false;
     }
@@ -161,7 +161,7 @@ class Validator {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      const msg = el.getAttribute('data-errMsg') || 'Please enter a valid email address.';
+      const msg = el.getAttribute('errMsg') || el.getAttribute('data-errMsg') || 'Please enter a valid email address.';
       this.#displayError(el, msg);
       return false;
     }
