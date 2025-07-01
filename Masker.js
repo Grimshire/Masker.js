@@ -176,19 +176,25 @@ class Validator {
  */
 class Masker {
   static init() {
-    document.querySelectorAll('[masker]').forEach(el => {
+    // 1. UPDATED SELECTOR: Find elements with EITHER [masker] OR [required]
+    document.querySelectorAll('[masker], [required]').forEach(el => {
+
+      // 2. CENTRALIZED VALIDATION: Always check for required status first.
+      this.#addRequiredValidation(el);
+
+      // 3. MASKER LOGIC: Proceed with specific masks only if the masker attribute exists.
       const m = el.getAttribute('masker');
-      const v = el.getAttribute('no-validate');
-      if (m.startsWith('char-count')) this.#setupCharCounter(el);
-      else if (m.startsWith('date')) this.#setupDateMask(el);
-      else if (m.startsWith('number')) this.#setupNumberMask(el);
-      else if (m.startsWith('phone')) this.#setupPhoneMask(el);
-      else if (m.startsWith('email')) this.#setupEmailMask(el);
+      if (m) {
+        if (m.startsWith('char-count')) this.#setupCharCounter(el);
+        else if (m.startsWith('date')) this.#setupDateMask(el);
+        else if (m.startsWith('number')) this.#setupNumberMask(el);
+        else if (m.startsWith('phone')) this.#setupPhoneMask(el);
+        else if (m.startsWith('email')) this.#setupEmailMask(el);
+      }
     });
   }
 
   static #setupEmailMask(el) {
-    this.#addRequiredValidation(el);
     const placeholder = '___@___';
 
     const setPlaceholder = () => {
@@ -243,7 +249,6 @@ class Masker {
   }
 
   static #setupDateMask(el) {
-    this.#addRequiredValidation(el);
     const maskAttr = el.getAttribute('masker') || '';
     const rawFmt = el.getAttribute('data-format') || 'MDY';
 
@@ -297,7 +302,6 @@ class Masker {
   }
 
   static #setupCharCounter(el) {
-    this.#addRequiredValidation(el);
     const fb = document.querySelector(`[data-feedback-for="${el.id}"]`);
     if (!fb) return;
     const visible = el.getAttribute('masker').includes('visible');
@@ -314,12 +318,10 @@ class Masker {
   }
 
   static #setupNumberMask(el) {
-    this.#addRequiredValidation(el);
     el.addEventListener('input', this.#applyNumberMask);
   }
 
   static #setupPhoneMask(el) {
-    this.#addRequiredValidation(el);
     const formats = {
       US: '(000) 000-0000', DSN: '000-000-0000', UK: '00000 000000',
       FR: '00 00 00 00 00', DE: '0000 0000000', JP: '000-0000-0000',
@@ -352,7 +354,6 @@ class Masker {
   }
 
   static #setupMilDateMask(el) {
-    this.#addRequiredValidation(el);
     const placeholder = 'YYYY MMM DD';
     if (el.getAttribute('masker').includes('visible')) {
       el.value = placeholder;
@@ -405,7 +406,7 @@ class Masker {
 
   static #applyDateMask(e, fmt) {
     const i = e.target;
-    const c = i.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    const c = i.value.replace(/\D/g, '');
     let out = '', ci = 0;
     for (let j = 0; j < fmt.length && ci < c.length; j++) {
       out += /[MDY]/.test(fmt[j]) ? c[ci++] : fmt[j];
