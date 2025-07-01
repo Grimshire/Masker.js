@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 | `Validator.validateDate(el)` | Checks month (01–12), day (01–31), and year (range flags: `1900`, `2000`, `future`, `ancient`). |
 | `Validator.validateDateRange(startEl, endEl)` | Compares two date fields:  <br>• If **start > end** → error on _start_ (message from `data-errMsg-range-start` or default).  <br>• If **end < start** → error on _end_ (message from `data-errMsg-range-end` or default). |
 
+For a JS fiddle with more extensive examples: https://jsfiddle.net/FirePrism/1fyae4o8/22/
+
 ## Examples
 
 ### 1) Masker (automatic wiring)
