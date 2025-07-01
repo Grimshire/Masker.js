@@ -7,7 +7,7 @@ A pair of lightweight, dependency-free JavaScript classes (`Masker` & `Validator
     *   Numbers
     *   Phone numbers (US, UK, FR, DE, JP, IN, CN, KR, BR, AR, AU, DSN)
     *   Dates (civil & military)
-*   Single-field validation (required, date format & range checks)
+*   Single-field validation (required, date format, email, & range checks)
 *   Cross-field “begin & end” date comparisons
 *   Includes a text-limiting feature
 *   Faux input mask for emails
