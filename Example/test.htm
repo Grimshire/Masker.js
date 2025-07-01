@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Test Page for Masker.js</title>
+    <script src="/Masker.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            background-color: black;
+            color: #eee;
+        }
+
+        h1,
+        h2 {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        .feedback,
+        .error-msg {
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .error-msg {
+            display: none;
+            /* Hidden by default */
+            color: #d93025;
+            font-weight: bold;
+        }
+
+        h4 {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Character Counter Masks</h2>
+    <div class="form-group">
+        <label for="notes">Notes (Counter hidden until typing)</label>
+        <textarea id="notes" masker="char-count" maxlength="200"></textarea>
+        <div class="feedback" data-feedback-for="notes"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="bio">Bio (Counter visible and required)</label>
+        <textarea id="bio" masker="char-count visible required" maxlength="150"
+            data-errMsg="Please provide a short bio."></textarea>
+        <div class="feedback" data-feedback-for="bio"></div>
+        <span class="error-msg" data-error-for="bio"></span>
+    </div>
+
+    <h2>Number & Phone Masks</h2>
+    <div class="form-group">
+        <label for="account-id">Account ID (Numbers only)</label>
+        <input type="text" id="account-id" masker="number" maxlength="8" />
+    </div>
+    <div class="form-group">
+        <label for="us-phone">US Phone (Required)</label>
+        <input type="text" id="us-phone" masker="phone required" data-format="US" />
+        <span class="error-msg" data-error-for="us-phone"></span>
+    </div>
+    <div class="form-group">
+        <label for="uk-phone">UK Phone (Visible Placeholder)</label>
+        <input type="text" id="uk-phone" masker="phone visible" data-format="UK" />
+    </div>
+
+    <h2>Email Mask & Validation</h2>
+    <div class="form-group">
+        <label for="email-address">Email Address (Required)</label>
+        <input type="email" id="email-address" masker="email required" 
+               data-errMsg="A valid email address is required."/>
+        <span class="error-msg" data-error-for="email-address"></span>
+    </div>
+
+    <h2>Single Date & Validation Masks</h2>
+    <div class="form-group">
+        <label for="invalid-date-test">Date (Test invalid month/day)</label>
+        <input type="text" id="invalid-date-test" masker="date" data-format="MDY" />
+        <span class="error-msg" data-error-for="invalid-date-test"></span>
+    </div>
+    <div class="form-group">
+        <label for="year-default">Date (Default: No past years)</label>
+        <input type="text" id="year-default" masker="date" data-format="MDY" />
+        <span class="error-msg" data-error-for="year-default"></span>
+    </div>
+    <div class="form-group">
+        <label for="year-1900">Date (Since 1900)</label>
+        <input type="text" id="year-1900" masker="date 1900" data-format="MDY" />
+        <span class="error-msg" data-error-for="year-1900"></span>
+    </div>
+    <div class="form-group">
+        <label for="year-future">Date (Future years only)</label>
+        <input type="text" id="year-future" masker="date future" data-format="MDY" />
+        <span class="error-msg" data-error-for="year-future"></span>
+    </div>
+    <div class="form-group">
+        <label for="year-any">Date (Any year allowed)</label>
+        <input type="text" id="year-any" masker="date ancient future" data-format="MDY" />
+        <span class="error-msg" data-error-for="year-any"></span>
+    </div>
+    <div class="form-group">
+        <label for="mil-date">Military Date</label>
+        <input type="text" id="mil-date" masker="date" data-format="US-MIL" />
+        <span class="error-msg" data-error-for="mil-date"></span>
+    </div>
+
+    <h2>Date Range Validation</h2>
+    <div class="form-group">
+        <label for="start-date">Start Date</label>
+        <input type="text" id="start-date" title="Start Date" masker="date begin required" data-format="MDY"
+            data-pair="project-dates" />
+        <span class="error-msg" data-error-for="start-date"></span>
+    </div>
+    <div class="form-group">
+        <label for="end-date">End Date</label>
+        <input type="text" id="end-date" title="End Date" masker="date end required" data-format="MDY"
+            data-pair="project-dates" />
+        <span class="error-msg" data-error-for="end-date"></span>
+    </div>
+</body>
+</html>
