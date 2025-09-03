@@ -12,7 +12,6 @@ The library is designed to be **declarative first**, meaning you control it prim
 
 -----
 
-\<hr\>
 
 ## Core Concepts
 
@@ -22,7 +21,6 @@ The library is designed to be **declarative first**, meaning you control it prim
 
 -----
 
-\<hr\>
 
 ## Setup & Initialization
 
@@ -118,7 +116,7 @@ Masker.init();
 
 -----
 
-\<hr\>
+
 
 ## API Reference
 
