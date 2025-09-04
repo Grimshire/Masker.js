@@ -67,7 +67,6 @@ Masker.init();
 
 -----
 
-\<hr\>
 
 ## Feature Reference
 
