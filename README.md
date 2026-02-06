@@ -82,3 +82,9 @@ The library is designed to be **declarative first**, meaning you control it prim
 | **`validate(el)`** | Runs the complete validation sequence for a **single element**. Returns an error string or `null`. |
 | **`findErrorAnchor(el)`** | **New in 2.1**: Public helper that returns the DOM element where an error message *would* be placed for a given input, respecting `data-error-anchor` attributes. |
 
+* **Error Anchoring (New in v2.1)**:
+    By default, errors appear immediately after the input. Use `data-error-anchor` to target a specific element ID where the error should be appended.
+    ```html
+    <input masker="date required" data-error-anchor="my-container" />
+    <div id="my-container"></div>
+    ```
